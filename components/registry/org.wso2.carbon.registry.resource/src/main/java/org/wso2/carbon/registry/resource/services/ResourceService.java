@@ -58,6 +58,7 @@ import org.wso2.carbon.registry.resource.services.utils.MediaTypeUtil;
 import org.wso2.carbon.registry.resource.services.utils.MetadataPopulator;
 import org.wso2.carbon.registry.resource.services.utils.MoveResourceUtil;
 import org.wso2.carbon.registry.resource.services.utils.PermissionUtil;
+import org.wso2.carbon.registry.resource.services.utils.RegistryConfigLoader;
 import org.wso2.carbon.registry.resource.services.utils.RenameResourceUtil;
 import org.wso2.carbon.registry.resource.services.utils.ResourceServiceException;
 import org.wso2.carbon.registry.resource.services.utils.RestoreVersionUtil;
@@ -175,6 +176,11 @@ public class ResourceService extends RegistryAbstractAdmin implements IResourceS
         UserRegistry registry = (UserRegistry) getRootRegistry(ResourceDataHolder.getInstance().getRegistryService());
         if (RegistryUtils.isRegistryReadOnly(registry.getRegistryContext())) {
             return false;
+        }
+
+        // Disable fetch URL based on urlImport config.
+        if (fetchURL != null && fetchURL.length() > 0 && !RegistryConfigLoader.getInstance().isUrlImportEnabled()) {
+            throw new org.wso2.carbon.registry.core.exceptions.RegistryException("Import from URL is not allowed");
         }
 
         // Fix for file importation security verification - FileSystemImportationSecurityHotFixTestCase

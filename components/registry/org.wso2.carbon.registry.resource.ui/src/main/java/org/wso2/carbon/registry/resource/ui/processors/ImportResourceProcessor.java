@@ -26,6 +26,7 @@ import org.wso2.carbon.registry.core.utils.MediaTypesUtils;
 import org.wso2.carbon.registry.resource.ui.Utils;
 import org.wso2.carbon.registry.resource.ui.clients.ResourceServiceClient;
 import org.wso2.carbon.registry.core.RegistryConstants;
+import org.wso2.carbon.registry.resource.ui.utils.RegistryConfigLoader;
 import org.wso2.carbon.utils.ServerConstants;
 import org.wso2.carbon.server.admin.common.IServerAdmin;
 import org.wso2.carbon.server.admin.common.ServerData;
@@ -73,6 +74,10 @@ public class ImportResourceProcessor {
                     getServletContext().getAttribute(CarbonConstants.CONFIGURATION_CONTEXT);
             IServerAdmin adminClient = new ServerAdminClient(configContext, serverURL, cookie, session);
             ServerData data;
+            // Disable fetch URL based on urlImport config.
+            if (fetchURL != null && fetchURL.length() > 0 && !RegistryConfigLoader.getInstance().isUrlImportEnabled()) {
+                throw new RegistryException("Import from URL is not allowed");
+            }
             try {
                 data = adminClient.getServerData();
             } catch (RegistryException e) {
