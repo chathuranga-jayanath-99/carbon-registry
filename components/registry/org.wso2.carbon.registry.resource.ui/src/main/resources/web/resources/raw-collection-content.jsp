@@ -34,6 +34,7 @@
 <%@ page import="org.owasp.encoder.Encode" %>
 <%@ page import="org.wso2.carbon.ui.CarbonUIUtil" %>
 <%@ page import="org.wso2.carbon.registry.core.pagination.PaginationContext" %>
+<%@ page import="org.wso2.carbon.registry.resource.ui.utils.RegistryConfigLoader" %>
 <script type="text/javascript" src="../registry_common/js/registry_validation.js"></script>
 
 <%
@@ -96,7 +97,11 @@
 		    <td>
 		        <select id="addMethodSelector" onchange="viewAddResourceUI()">
 		            <option value="upload" selected="selected"><fmt:message key="upload.content.from.file"/></option>
-		            <option value="import"><fmt:message key="import.content.from.url"/></option>
+		            <%
+                        if(RegistryConfigLoader.getInstance().isUrlImportEnabled()) {
+                            %><option value="import"><fmt:message key="import.content.from.url"/></option><%
+                        }
+                    %>
 		            <option value="text"><fmt:message key="text.content"/></option>
 		            <option value="custom"><fmt:message key="create.custom.content"/></option>
                         </select>
