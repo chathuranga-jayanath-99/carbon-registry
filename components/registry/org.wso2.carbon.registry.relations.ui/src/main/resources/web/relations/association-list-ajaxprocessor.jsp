@@ -38,6 +38,11 @@
 <script type="text/javascript" src="../relations/js/relations.js"></script>
 
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     String cookie = (String) session.getAttribute(ServerConstants.ADMIN_SERVICE_COOKIE);
     RelationServiceClient client = new RelationServiceClient(cookie, config, session);
     DependenciesBean bean;

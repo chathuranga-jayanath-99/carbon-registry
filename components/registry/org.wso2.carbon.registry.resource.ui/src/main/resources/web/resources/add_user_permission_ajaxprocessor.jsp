@@ -24,6 +24,11 @@
 <fmt:bundle basename="org.wso2.carbon.registry.resource.ui.i18n.Resources">
 
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     String errorMessage = null;
     try {
         AddUserPermissionProcessor.process(request, response, config);

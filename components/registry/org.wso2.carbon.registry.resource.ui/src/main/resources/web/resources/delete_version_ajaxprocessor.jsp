@@ -19,6 +19,11 @@
 <%@ page import="org.owasp.encoder.Encode" %>
 <%@ page import="org.wso2.carbon.registry.resource.ui.processors.DeleteVersionProcessor" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     String errorMessage = null;
 	String path = request.getParameter("path");
 	String screenWidth = request.getParameter("screenWidth");

@@ -767,7 +767,7 @@ function deleteSearchFilter(filterName) {
         function() {
             new Ajax.Request('../search/deleteSearchFilter-ajaxprocessor.jsp',
             {
-                method:'get',
+                method:'post',
                 parameters: {filterName:filterName},
 
                 onSuccess: function(transport) {
