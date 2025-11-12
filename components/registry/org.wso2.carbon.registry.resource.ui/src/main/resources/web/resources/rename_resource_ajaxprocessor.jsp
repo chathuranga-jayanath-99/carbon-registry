@@ -19,6 +19,11 @@
 <%@ page import="org.wso2.carbon.registry.resource.ui.processors.RenameResourceProcessor" %>
 <%@ page import="org.owasp.encoder.Encode" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     try {
         RenameResourceProcessor.process(request, response, config);
 

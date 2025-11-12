@@ -21,6 +21,11 @@
 <%@ page import="org.wso2.carbon.ui.CarbonUIMessage" %>
 <%@ page import="org.wso2.carbon.registry.core.RegistryConstants" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     String errorMessage = null;
     try {
         MoveProcessor.process(request, response, config);

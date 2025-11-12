@@ -20,6 +20,11 @@
 <%@ page import="org.wso2.carbon.registry.resource.ui.processors.CreateVersionProcessor" %>
 <%@ page import="org.wso2.carbon.registry.resource.ui.Utils" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     try {
         CreateVersionProcessor.process(request, response, config);
 

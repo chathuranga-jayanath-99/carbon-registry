@@ -23,6 +23,11 @@
 <%@ page import="org.wso2.carbon.utils.ServerConstants" %>
 
     <%
+        String method = request.getMethod();
+        if (!"POST".equalsIgnoreCase(method)) {
+            response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            return;
+        }
         String cookie = (String) session.getAttribute(ServerConstants.ADMIN_SERVICE_COOKIE);
 
         String path = request.getParameter("path");

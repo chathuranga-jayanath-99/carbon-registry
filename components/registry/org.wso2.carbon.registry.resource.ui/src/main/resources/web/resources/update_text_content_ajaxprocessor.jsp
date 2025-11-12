@@ -24,6 +24,11 @@
 
 
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     try {
         UpdateTextContentProcessor.process(request, response, config);
     } catch (UIException e) {

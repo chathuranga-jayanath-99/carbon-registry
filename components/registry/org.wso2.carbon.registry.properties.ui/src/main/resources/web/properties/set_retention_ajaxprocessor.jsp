@@ -21,6 +21,11 @@
 <%@ page import="org.wso2.carbon.ui.CarbonUIMessage" %>
 <%@ page import="org.owasp.encoder.Encode" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     PropertiesServiceClient client = new PropertiesServiceClient(config, session);
 
     try {

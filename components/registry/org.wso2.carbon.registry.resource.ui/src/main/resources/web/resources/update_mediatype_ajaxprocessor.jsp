@@ -19,6 +19,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     try {
         boolean xmlToArtifactChangeHappen = AddMediaTypeProcessor.process(request, response, config);
 	if(xmlToArtifactChangeHappen)
