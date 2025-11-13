@@ -22,6 +22,11 @@
 <%@ page import="org.wso2.carbon.ui.CarbonUIMessage" %>
 <%@ page import="java.net.URLEncoder" %>
 <%
+    String method = request.getMethod();
+    if (!"POST".equalsIgnoreCase(method)) {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return;
+    }
     String resourcePath = request.getParameter("path");
     try {
         resourcePath = URLEncoder.encode(resourcePath, "UTF-8");
