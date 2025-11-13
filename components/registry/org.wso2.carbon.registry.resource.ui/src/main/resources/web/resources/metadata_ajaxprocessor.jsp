@@ -87,6 +87,21 @@
        CARBON.showWarningDialog('<fmt:message key="retention.warn"/>' );
        return;
    }
+
+   function restoreResourceVersion(fullpath, activepath) {
+       new Ajax.Request('../resources/restore_version_ajaxprocessor.jsp',
+           {
+               method: 'post',
+               parameters: {versionPath: fullpath, path: activepath},
+
+               onSuccess: function () {
+                   window.location = "./resource.jsp?region=region3&item=resource_browser_menu&viewType=std&path=" + activepath.replace(/&/g, "%26");
+               },
+
+               onFailure: function () {
+               }
+           });
+   }
 </script>
 
 <div class="box1-head">
@@ -172,10 +187,10 @@
                     try {
                         decodedPath = URLDecoder.decode(decodedPath, "UTF-8");
                     } catch (Exception ignore) {}
-                    String encodedActivePath = versionRestoreActivepath;
-//                    try {
-//                        encodedActivePath = URLEncoder.encode(encodedActivePath, "UTF-8");
-//                    } catch (Exception ignore) {}
+                    String decodedActivePath = versionRestoreActivepath;
+                    try {
+                        decodedActivePath = URLDecoder.decode(decodedActivePath, "UTF-8");
+                    } catch (Exception ignore) {}
                 %>
                 <%
                     if(Boolean.valueOf(metadata.getDeleteLocked()) || Boolean.valueOf(metadata.getWriteLocked())) {
@@ -191,10 +206,9 @@
             <a
                     style="background-image:url(../resources/images/icon-restore.gif)"
                     class="icon-link registryWriteOperation"
-                    href="./restore_version_ajaxprocessor.jsp?versionPath=<%=versionRestoreFullpath%>&path=<%=encodedActivePath%>"
-                    >
-                <fmt:message key="restore.to.this.version"/> (<span style="text-decoration:italic"><%=decodedPath%></span>) </a>
-           </td>
+                    onclick="restoreResourceVersion('<%=decodedPath%>','<%=decodedActivePath%>')"><fmt:message
+                    key="restore.to.this.version"/> (<span style="text-decoration:italic"><%=decodedPath%></span>) </a>
+            </td>
             <% } %>
             <% } %>
             <% } %>

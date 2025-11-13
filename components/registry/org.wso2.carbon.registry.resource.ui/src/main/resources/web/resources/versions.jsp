@@ -65,6 +65,21 @@ function setAndGo(fullpath,activepath){
 	});
 }
 
+function restoreResourceVersion(fullpath, activepath) {
+    new Ajax.Request('../resources/restore_version_ajaxprocessor.jsp',
+        {
+            method: 'post',
+            parameters: {versionPath: fullpath, path: activepath},
+
+            onSuccess: function () {
+                window.location = "./resource.jsp?region=region3&item=resource_browser_menu&viewType=std&path=" + activepath.replace(/&/g, "%26");
+            },
+
+            onFailure: function () {
+            }
+        });
+}
+
 function submitDelete(path, snapshotId, screenWidth){
         CARBON.showConfirmationDialog(
                    org_wso2_carbon_registry_resource_ui_jsi18n["are.you.sure.you.want.to.delete.version"] +
@@ -73,7 +88,7 @@ function submitDelete(path, snapshotId, screenWidth){
 
                    new Ajax.Request('../resources/delete_version_ajaxprocessor.jsp',
                    	{
-                   	    method:'get',
+                   	    method:'post',
                    	    parameters: {path: path,snapshotId:snapshotId},
 
                    	    onSuccess: function() {
@@ -193,7 +208,7 @@ function submitDelete(path, snapshotId, screenWidth){
                     <td>
                         <a class="details-icon-link" onclick="setAndGo('<%=vpath%>','<%=path%>')"><fmt:message key="details"/></a>
                         <% if (versionBean.getLoggedIn() && versionBean.getPutAllowed() && !Boolean.parseBoolean(versionBean.getWriteLocked())) { %>
-                        <a href="./restore_version_ajaxprocessor.jsp?versionPath=<%=vpath%>&path=<%=path%>"
+                        <a onclick="restoreResourceVersion('<%=versionPath.getCompleteVersionPath()%>','<%=versionPath.getActiveResourcePath()%>')"
                            class="restore-icon-link registryWriteOperation"><fmt:message key="restore"/></a>
                         <% } %>
                         <%
