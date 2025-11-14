@@ -28,14 +28,14 @@
 
 
 <%
-    String method = request.getMethod();
-    if (!"POST".equalsIgnoreCase(method)) {
-        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-        return;
-    }
     PropertiesServiceClient client_ = new PropertiesServiceClient(config, session);
     try {
     if (request.getParameter("name") != null) {
+        String method = request.getMethod();
+        if (!"POST".equalsIgnoreCase(method)) {
+            response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            return;
+        }
         if (request.getParameter("oldName") != null) {
             client_.updateProperty(request);
         } else if (request.getParameter("remove") != null) {
