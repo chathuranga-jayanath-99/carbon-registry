@@ -23,12 +23,6 @@
 <%@ page import="org.wso2.carbon.registry.resource.stub.beans.xsd.ResourceTreeEntryBean" %>
 <%@ page import="org.wso2.carbon.registry.resource.ui.Utils" %>
 <%
-    if (request.getMethod() != null && request.getAttribute("javax.servlet.include.request_uri") == null) {
-        if (!"post".equalsIgnoreCase(request.getMethod())) {
-            response.sendError(405);
-            return;
-        }
-    }
     String treeNavigationPath = request.getParameter("treeNavigationPath");
     String reference = request.getParameter("reference");
     if ("compute".equals(reference) && treeNavigationPath != null) {
