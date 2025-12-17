@@ -543,9 +543,9 @@ function setPropertyName() {
     var propLabel = document.getElementById("lblPropName");
 
     if(propName.value != "") {
-        propLabel.innerHTML = propName.value;
+        propLabel.textContent = propName.value;
     } else {
-        propLabel.innerHTML = "-";
+        propLabel.textContent = "-";
     }
 }
 
