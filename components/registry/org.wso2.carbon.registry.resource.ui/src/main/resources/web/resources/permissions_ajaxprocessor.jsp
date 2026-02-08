@@ -91,6 +91,7 @@
                         <td>
                             <select id="userToAuthorize" name="userToAuthorize"
                                     style="width:100px;">
+                                <option value=""></option>
                                 <option value="-select-">-Select-
                                 </option>
                                 <%
@@ -108,6 +109,7 @@
                         <td align="right"><fmt:message key="action"/></td>
                         <td>
                             <select id="actionToAuthorize" name="actionToAuthorize">
+                                <option value=""></option>
                                 <option value="1">-<fmt:message key="select"/>-</option>
                                 <option value="2"><fmt:message key="read"/></option>
                                 <option value="3"><fmt:message key="write"/></option>
@@ -249,6 +251,7 @@
                         <td><fmt:message key="role"/></td>
                         <td>
                             <select id="roleToAuthorize" name="roleToAuthorize">
+                                <option value=""></option>
                                 <%
                                     String[] roles = permissionBean.getRoleNames();
                                     if (roles == null) roles = new String[0];
@@ -266,6 +269,7 @@
                         <td>
                             <select id="roleActionToAuthorize" name="actionToAuthorize"
                                     style="width:100px;">
+                                <option value=""></option>
                                 <option value="1">-<fmt:message key="select"/>-</option>
                                 <option value="2"><fmt:message key="read"/></option>
                                 <option value="3"><fmt:message key="write"/></option>
