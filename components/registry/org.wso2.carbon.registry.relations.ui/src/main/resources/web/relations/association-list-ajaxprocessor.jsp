@@ -29,6 +29,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 
 <jsp:include page="../registry_common/registry_common-i18n-ajaxprocessor.jsp"/>
 <script type="text/javascript" src="../registry_common/js/registry_validation.js"></script>
@@ -166,13 +167,13 @@
                             destPathSmall = destPathSmall.substring(0, 32) + "..";
                         }
                     %>
-                    <a <%if (destPath.startsWith("http://") || destPath.startsWith("https://")) {%>target="_blank"<%}%> href="<%=destLink%>" title="<%=destPath%>"><%=destPathSmall%>
+                    <a <%if (destPath.startsWith("http://") || destPath.startsWith("https://")) {%>target="_blank"<%}%> href="<%=Encode.forHtmlAttribute(destLink)%>" title="<%=Encode.forHtmlAttribute(destPath)%>"><%=Encode.forHtml(destPathSmall)%>
                     </a>
                 </td>
                 <% if (bean.getLoggedIn() && bean.getPutAllowed() && !bean.getVersionView()) { %>
                 <td style="width:10px;" align="left">
                     <a class="icon-link registryWriteOperation" style="background-image:url(../admin/images/delete.gif);"
-                       onclick="removeAssociation('<%=bean.getPathWithVersion()%>','<%=destPath%>','<%=association.getAssociationType()%>','dependenciesDiv');">
+                       onclick="removeAssociation('<%=Encode.forJavaScriptAttribute(bean.getPathWithVersion())%>','<%=Encode.forJavaScriptAttribute(destPath)%>','<%=Encode.forJavaScriptAttribute(association.getAssociationType())%>','dependenciesDiv');">
                         <fmt:message key="delete"/>
                     </a>
                 </td>
@@ -195,13 +196,13 @@
         <carbon:resourcePaginator pageNumber="<%=pageNumber%>" numberOfPages="<%=numberOfPages%>"
                                   resourceBundle="org.wso2.carbon.registry.relations.ui.i18n.Resources"
                                   nextKey="next" prevKey="prev"
-                                  paginationFunction="<%="loadAssociationDiv('" + request.getParameter("path").replaceAll("&","%26") + "', '" + request.getParameter("type") + "', {0})"%>" />
+                                  paginationFunction="<%="loadAssociationDiv('" + Encode.forJavaScriptAttribute(request.getParameter("path").replaceAll("&","%26")) + "', '" + Encode.forJavaScriptAttribute(request.getParameter("type")) + "', {0})"%>" />
     </table>
 
     <div style="height:30px;">
         <a class="icon-link"
            style="background-image:url(../relations/images/dep-tree.gif);padding-left:30px;height:30px;margin-top:5px;"
-           onclick="showAssociationTree('depends', '<%=bean.getPathWithVersion()%>')">
+           onclick="showAssociationTree('depends', '<%=Encode.forJavaScriptAttribute(bean.getPathWithVersion())%>')">
             <fmt:message key="dependency.tree"/>
         </a>
     </div>
@@ -279,7 +280,7 @@
             %>
             <tr>
                 <td>
-                    <%=association.getAssociationType()%>
+                    <%=Encode.forHtml(association.getAssociationType())%>
                 </td>
                 <td>
                     <%  int typeLen = association.getAssociationType().length();
@@ -303,13 +304,13 @@
                             destPathSmall = destPathSmall.substring(0, 10) + "..";
                         }
                     %>
-                    <a <%if (destPath.startsWith("http://") || destPath.startsWith("https://")) {%>target="_blank"<%}%> href="<%=destLink%>" title="<%=destPath%>"><%=destPathSmall%>
+                    <a <%if (destPath.startsWith("http://") || destPath.startsWith("https://")) {%>target="_blank"<%}%> href="<%=Encode.forHtmlAttribute(destLink)%>" title="<%=Encode.forHtmlAttribute(destPath)%>"><%=Encode.forHtml(destPathSmall)%>
                     </a>
                 </td>
                 <% if (bean.getLoggedIn() && bean.getPutAllowed() && !bean.getVersionView()) { %>
                 <td style="width:10px;">
                     <a class="icon-link registryWriteOperation" style="background-image:url(../admin/images/delete.gif);"
-                       onclick="removeAssociation('<%=bean.getPathWithVersion()%>','<%=destPath%>','<%=association.getAssociationType()%>','associationsDiv');">
+                       onclick="removeAssociation('<%=Encode.forJavaScriptAttribute(bean.getPathWithVersion())%>','<%=Encode.forJavaScriptAttribute(destPath)%>','<%=Encode.forJavaScriptAttribute(association.getAssociationType())%>','associationsDiv');">
                         <fmt:message key="delete"/>
                     </a>
                 </td>
@@ -332,13 +333,13 @@
         <carbon:resourcePaginator pageNumber="<%=pageNumber%>" numberOfPages="<%=numberOfPages%>"
                                   resourceBundle="org.wso2.carbon.registry.relations.ui.i18n.Resources"
                                   nextKey="next" prevKey="prev"
-                                  paginationFunction="<%="loadAssociationDiv('" + request.getParameter("path").replaceAll("&","%26") + "', '" + request.getParameter("type") + "', {0})"%>" />
+                                  paginationFunction="<%="loadAssociationDiv('" + Encode.forJavaScriptAttribute(request.getParameter("path").replaceAll("&","%26")) + "', '" + Encode.forJavaScriptAttribute(request.getParameter("type")) + "', {0})"%>" />
     </table>
 
     <div style="height:30px;">
         <a class="icon-link"
            style="background-image:url(../relations/images/asso-tree.gif);padding-left:30px;height:30px;margin-top:5px;"
-           onclick="showAssociationTree('asso', '<%=bean.getPathWithVersion()%>')">
+           onclick="showAssociationTree('asso', '<%=Encode.forJavaScriptAttribute(bean.getPathWithVersion())%>')">
             <fmt:message key="association.tree"/></a>
     </div>
     <% } %>
