@@ -65,7 +65,7 @@
         response.setStatus(500);
 %>
 <script type="text/javascript">
-    CARBON.showErrorDialog("<%=Encode.forHtml(e.getMessage())%>");
+    CARBON.showErrorDialog("<%=Encode.forJavaScript(e.getMessage())%>");
 </script>
 
 
@@ -129,8 +129,8 @@
 
 
     <!-- Hidden fields to pass variables to advancedSearch.jsp -->
-    <input type="hidden" name="sortOrder" id="sortOrder" value="<%=sortOrder%>" />
-    <input type="hidden" name="sortBy" id="sortBy" value="<%=sortBy%>" />
+    <input type="hidden" name="sortOrder" id="sortOrder" value="<%=Encode.forHtmlAttribute(sortOrder)%>" />
+    <input type="hidden" name="sortBy" id="sortBy" value="<%=Encode.forHtmlAttribute(sortBy)%>" />
     <h3 style="margin-top:20px;margin-bottom:20px;"> <fmt:message key="search.results"/> </h3>
 
     <table cellpadding="0" id = "searchTable" cellspacing="0" border="0" style="width:100%" class="styledLeft">
@@ -227,10 +227,10 @@
                     src="images/icon-folder-small.gif" style="margin-right:5px;" align="top"/>
                 <% if (CarbonUIUtil.isUserAuthorized(request, "/permission/admin/manage/resources/browse")) {%>
                 <a onclick="directToResource('../resources/resource.jsp?region=region3&item=resource_browser_menu&viewType=std&path=<%=tempPath%>')"
-                   href="#"><%=resourceData.getResourcePath()%>
+                   href="#"><%=Encode.forHtml(resourceData.getResourcePath())%>
                 </a>
                 <% } else { %>
-                <%=resourceData.getResourcePath()%>
+                <%=Encode.forHtml(resourceData.getResourcePath())%>
                 <% } %>
             </td>
             <% } %>
@@ -239,10 +239,10 @@
                     src="images/resource.gif" style="margin-right:5px;" align="top"/>
                 <% if (CarbonUIUtil.isUserAuthorized(request, "/permission/admin/manage/resources/browse")) {%>
                 <a onclick="directToResource('../resources/resource.jsp?region=region3&item=resource_browser_menu&viewType=std&path=<%=tempPath%>')"
-                   href="#"><%=resourceData.getResourcePath()%>
+                   href="#"><%=Encode.forHtml(resourceData.getResourcePath())%>
                 </a>
                 <% } else { %>
-                <%=resourceData.getResourcePath()%>
+                <%=Encode.forHtml(resourceData.getResourcePath())%>
                 <% } %>
             </td>
             <% } %>
@@ -251,7 +251,7 @@
                 <nobr><%=resourceData.getFormattedCreatedOn()%>
                 </nobr>
             </td>
-            <td style="padding-left:5px;padding-top:3px;text-align:left;"><%=resourceData.getAuthorUserName()%>
+            <td style="padding-left:5px;padding-top:3px;text-align:left;"><%=Encode.forHtml(resourceData.getAuthorUserName())%>
             </td>
             <td style="padding-left:5px;padding-top:3px;text-align:left;">
                 <div style="width:140px;">
